@@ -1,0 +1,187 @@
+#include <iostream>
+using namespace std;
+
+template <class T>
+struct cnode
+{
+    T valor;
+    cnode<T>* next;
+
+    cnode(T v)
+    {
+        valor = v;
+        next = 0;
+    }
+};
+
+
+template <class T>
+class Merge
+{
+public:
+    void ejecuta(cnode<T>*& L1, cnode<T>*& L2);
+    void print(cnode<T>* L);
+};
+
+
+
+
+template <class T>
+void Merge<T>::ejecuta(cnode<T>*& L1, cnode<T>*& L2)
+{
+    //si l1 esta vacia, pasa apuntar a l2
+    if (L1 == 0)
+    {
+        L1 = L2;
+        L2 = 0;
+        return;
+    }
+
+    // si l2 esta vacia ahi muere
+    if (L2 == 0)
+    {
+        return;
+    }
+
+
+    // l1 empieza con el menor
+    if (L2->valor < L1->valor)
+    {
+        cnode<T>* temp = L1;
+        L1 = L2;
+        L2 = temp;
+    }
+
+
+    cnode<T>* p1 = L1;
+    cnode<T>* p2 = L2;
+
+
+    while (p1->next != 0 && p2 != 0)
+    {
+      
+        if (p1->next->valor <= p2->valor)
+        {
+            p1 = p1->next;
+        }
+
+        
+        else
+        {
+           
+            cnode<T>* temp = p2->next;
+
+            
+            p2->next = p1->next;
+
+            
+            p1->next = p2;
+
+            
+            p1 = p2;
+
+            
+            p2 = temp;
+        }
+    }
+
+
+
+    if (p1->next == 0)
+    {
+        p1->next = p2;
+    }
+
+
+  
+    L2 = 0;
+}
+
+
+
+
+template <class T>
+void Merge<T>::print(cnode<T>* L)
+{
+    cout << "head -> ";
+
+    while (L != 0)
+    {
+        cout << L->valor << " -> ";
+        L = L->next;
+    }
+
+    cout << "NULL" << endl;
+}
+
+
+//lissta
+
+template <class T>
+cnode<T>* crearLista(T valores[], int n)
+{
+    if (n == 0)
+        return 0;
+
+    T* p = valores;
+    T* fin = valores + n;
+
+    // creamos nodos
+    cnode<T>* head = new cnode<T>(*p);
+    cnode<T>* actual = head;
+
+    p++;
+
+    while (p != fin)
+    {
+        actual->next = new cnode<T>(*p);
+        actual = actual->next;
+
+        p++;
+    }
+
+    return head;
+}
+
+
+
+
+int main()
+{
+    int datos1[] = { 1, 3, 6, 9 };
+    int datos2[] = { 1, 5, 10, 15, 20 };
+
+
+    
+    cnode<int>* L1 = crearLista(datos1, 4);
+    cnode<int>* L2 = crearLista(datos2, 5);
+
+
+    Merge<int> m;
+
+
+    cout << "ANTES DE MEZCLAR" << endl;
+
+    cout << "L1: ";
+    m.print(L1);
+
+    cout << "L2: ";
+    m.print(L2);
+
+
+    // mezclamos 
+    m.ejecuta(L1, L2);
+
+
+    cout << endl;
+    cout << "DESPUES DE MEZCLAR" << endl;
+
+    cout << "L1: ";
+    m.print(L1);
+
+    cout << "L2: ";
+    m.print(L2);
+
+
+    return 0;
+}
