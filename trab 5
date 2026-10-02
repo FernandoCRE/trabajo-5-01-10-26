@@ -160,7 +160,7 @@ int main()
     Merge<int> m;
 
 
-    cout << "ANTES DE MEZCLAR" << endl;
+    cout << "antes de mezclar" << endl;
 
     cout << "L1: ";
     m.print(L1);
@@ -174,7 +174,7 @@ int main()
 
 
     cout << endl;
-    cout << "DESPUES DE MEZCLAR" << endl;
+    cout << "despues de mezclar" << endl;
 
     cout << "L1: ";
     m.print(L1);
