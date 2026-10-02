@@ -148,13 +148,13 @@ cnode<T>* crearLista(T valores[], int n)
 
 int main()
 {
-    int datos1[] = { 1, 3, 6, 9 };
-    int datos2[] = { 1, 5, 10, 15, 20 };
+    int datos1[] = { 1, 3, 5, 9, 11, 15 };
+    int datos2[] = { 1, 2, 3, 7, 9, 10, 15 };
 
 
     
-    cnode<int>* L1 = crearLista(datos1, 4);
-    cnode<int>* L2 = crearLista(datos2, 5);
+    cnode<int>* L1 = crearLista(datos1, 6);
+    cnode<int>* L2 = crearLista(datos2, 7);
 
 
     Merge<int> m;
